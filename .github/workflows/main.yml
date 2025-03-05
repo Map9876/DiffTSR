@@ -3,14 +3,14 @@ name: Run DiffTSR Inference
 on:
   push:
     branches:
-      - main  # 触发条件：推送到 main 分支时运行
+      - main
   pull_request:
     branches:
-      - main  # 触发条件：针对 main 分支的 PR 时运行
+      - main
 
 jobs:
   run-difftsr:
-    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
+    runs-on: ubuntu-latest
 
     steps:
       # 1. 检出代码
@@ -22,47 +22,49 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
-          python-version: "3.8"  # 指定 Python 版本
-          activate-environment: DiffTSR  # 激活的环境名称
-          environment-file: environment.yaml  # 使用 environment.yaml 创建环境
+          python-version: "3.8.5"
+          activate-environment: DiffTSR
+          environment-file: environment.yaml
 
       # 3. 激活 Conda 环境
       - name: Activate Conda environment
-        shell: bash -l {0}  # 使用 bash -l 确保 Conda 环境激活
+        shell: bash -l {0}
         run: |
           conda activate DiffTSR
-          conda info  # 打印 Conda 信息以确认环境激活
+          conda info
 
-      # 4. 下载模型文件
+      # 4. 更新 pip 和 setuptools
+      - name: Update pip and setuptools
+        run: |
+          python -m pip install --upgrade pip setuptools
+
+      # 5. 安装本地包
+      - name: Install package
+        run: |
+          pip install .
+
+      # 6. 下载模型文件
       - name: Download models
         run: |
-          # 使用 drive.arg.py 下载模型文件
           python drive.arg.py --url https://drive.google.com/drive/folders/1K6k5ZcvF3w-1MDN_gXQTdsLgFZ2SM8qy?usp=drive_link
-
-          # 检查文件是否下载成功
           ls -lh DiffTSR.ckpt transocr.pth
 
-      # 5. 移动模型文件到指定路径
+      # 7. 移动模型文件到指定路径
       - name: Move models to target directory
         run: |
-          # 创建目标目录（如果不存在）
           mkdir -p ./testset/0_lr_synth/
-
-          # 移动文件
           mv DiffTSR.ckpt ./testset/0_lr_synth/
           mv transocr.pth ./testset/0_lr_synth/
-
-          # 检查文件是否移动成功
           ls -lh ./testset/0_lr_synth/
 
-      # 6. 运行 inference_DiffTSR.py
+      # 8. 运行 inference_DiffTSR.py
       - name: Run inference
         run: |
           python inference_DiffTSR.py
 
-      # 7. 上传生成的超分辨率图片为 Artifacts
+      # 9. 上传生成的超分辨率图片为 Artifacts
       - name: Upload SR images as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: sr-images  # Artifacts 的名称
-          path: ./testset/0_sr_synth/  # 上传的路径
+          name: sr-images
+          path: ./testset/0_sr_synth/
