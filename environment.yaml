@@ -7,11 +7,11 @@ dependencies:
   - python=3.8.5
   - pip=23.1.2
   - cudatoolkit=11.0
-  - pytorch=1.7.0=py3.8_cuda11.0.221_cudnn8.0.5_0
-  - torchvision=0.8.1=py38_cu110
   - numpy=1.19.2
   - setuptools>=60.0.0
   - pip:
+    - torch==1.7.0+cu110 -f https://download.pytorch.org/whl/torch_stable.html  # 使用 PyTorch 官方安装命令
+    - torchvision==0.8.1+cu110 -f https://download.pytorch.org/whl/torch_stable.html
     - albumentations==0.4.3
     - opencv-python==4.1.2.30
     - pudb==2019.2
@@ -31,4 +31,4 @@ dependencies:
     - axial_positional_embedding
     - linear_attention_transformer
     - zhconv
-    - -e .  # 使用 pip 安装当前项目
+    - -e .  # 安装当前目录下的包
