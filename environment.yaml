@@ -10,8 +10,8 @@ dependencies:
   - numpy=1.19.2
   - setuptools>=60.0.0
   - pip:
-    - torch==1.7.0+cu110 -f https://download.pytorch.org/whl/torch_stable.html  # 使用 PyTorch 官方安装命令
-    - torchvision==0.8.1+cu110 -f https://download.pytorch.org/whl/torch_stable.html
+    - torch==1.13.1+cu117 -f https://download.pytorch.org/whl/torch_stable.html  # 使用较新的 PyTorch 版本
+    - torchvision==0.14.1+cu117 -f https://download.pytorch.org/whl/torch_stable.html
     - albumentations==0.4.3
     - opencv-python==4.1.2.30
     - pudb==2019.2
