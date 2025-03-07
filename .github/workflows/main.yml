@@ -28,8 +28,10 @@ jobs:
 
       # 3. 激活 Conda 环境
       - name: Activate Conda environment
-        shell: bash
+        
+        shell: bash -l {0}
         run: |
+          conda init
           conda activate DiffTSR
           conda info
 
