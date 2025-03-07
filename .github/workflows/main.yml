@@ -47,15 +47,13 @@ jobs:
       # 6. 下载模型文件
       - name: Download models
         run: |
-          python drive.arg.py --url https://drive.google.com/drive/folders/1K6k5ZcvF3w-1MDN_gXQTdsLgFZ2SM8qy?usp=drive_link
-          ls -lh DiffTSR.ckpt transocr.pth
+          curl -o DiffTSR.ckpt "https://drive.usercontent.google.com/download?id=1UZWJ0PlOovrikqAQPAhnBIhuMXFYAxy6&export=download&confirm=t"
 
       # 7. 移动模型文件到指定路径
       - name: Move models to target directory
         run: |
           mkdir -p ./testset/0_lr_synth/
           mv DiffTSR.ckpt ./testset/0_lr_synth/
-          mv transocr.pth ./testset/0_lr_synth/
           ls -lh ./testset/0_lr_synth/
 
       # 8. 运行 inference_DiffTSR.py
