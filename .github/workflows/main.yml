@@ -41,7 +41,7 @@ jobs:
       # 5. 安装本地包
       - name: Install package
         run: |
-         pip install beautifulsoup4
+         pip install beautifulsoup4 argparse
           pip install -e .
 
       # 6. 下载模型文件
