@@ -11,7 +11,7 @@ dependencies:
   - setuptools>=60.0.0
   - pip:
     - torch==2.4.0 -f https://download.pytorch.org/whl/torch_stable.html  # 使用较新的 PyTorch 版本
-    - torchvision==0.14.1+cu117 -f https://download.pytorch.org/whl/torch_stable.html
+    - torchvision==0.19.0 -f https://download.pytorch.org/whl/torch_stable.html
     - albumentations==0.4.3
     - opencv-python==4.1.2.30
     - pudb==2019.2
