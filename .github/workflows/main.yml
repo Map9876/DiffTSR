@@ -43,7 +43,7 @@ jobs:
       # 5. 安装本地包
       - name: Install package
         run: |
-          pip install beautifulsoup4 argparse pillow omegaconf torchvision==0.17.0 einops pytorch_lightning axial_positional_embedding linear_attention_transformer
+          pip install beautifulsoup4 argparse pillow omegaconf torchvision==0.17.0 einops pytorch_lightning axial_positional_embedding linear_attention_transformer zhconv
           pip install -e .
 
       # 6. 下载模型文件
