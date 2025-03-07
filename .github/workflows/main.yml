@@ -16,7 +16,12 @@ jobs:
       # 1. 检出代码
       - name: Checkout repository
         uses: actions/checkout@v3
-
+      - name: cuda
+        uses: Jimver/cuda-toolkit@v0.2.21
+        id: cuda-toolkit
+        with:
+          cuda: '12.5.0'
+    
       # 2. 设置 Miniconda
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v2
